@@ -45,16 +45,26 @@ app.get("/", function(req, res) {
 app.get("/tables", function(req, res) {
     res.sendFile(path.join(__dirname, "tables.html"));
 });
+
+app.get('/api/tables', function(req, res) {
+    return res.json(reservations);
+});
+
+app.get('/api/waitlist', function(req, res) {
+    return res.json(waitlist);
+})
+
   
 app.get("/reserve", function(req, res) {
     res.sendFile(path.join(__dirname, "reserve.html"));
 });
 
+
 // Post user data to server
 app.post("/api/tables", function(req, res) {
     let newtable = req.body;
     newtable.routeName = newtable.customerName.replace(/\s+/g, "").toLowerCase();
-    // console.log(newtable);
+    console.log(newtable);
 
     if (reservations.length < 5) {
         reservations.push(newtable);
@@ -64,8 +74,8 @@ app.post("/api/tables", function(req, res) {
         console.log('pushed to waitlist');
     }
 
-    console.log('Reservations\r\n' + reservations);
-    console.log('Waitlist\r\n' + waitlist);
+    // console.log('Reservations\r\n' + reservations);
+    // console.log('Waitlist\r\n' + waitlist);
 
     res.json(newtable);
 });
