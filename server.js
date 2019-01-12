@@ -43,7 +43,7 @@ app.get("/reserve", function(req, res) {
 // Post user data to server
 app.post("/api/tables", function(req, res) {
     var newtable = req.body;
-    newtable.routeName = newtable.name.replace(/\s+/g, "").toLowerCase();
+    newtable.routeName = newtable.customerName.replace(/\s+/g, "").toLowerCase();
     console.log(newtable);
     reservations.push(newtable);
     res.json(newtable);
