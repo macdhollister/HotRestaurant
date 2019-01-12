@@ -17,7 +17,7 @@ app.listen(PORT, function() {
   });
 
 // Set variable to store user data
-  var tables = [
+  var reservations = [
     {
       routeName: "tables",
       customerName: "",
@@ -42,13 +42,9 @@ app.get("/reserve", function(req, res) {
 
 // Post user data to server
 app.post("/api/tables", function(req, res) {
-var newtable = req.body;
-
-newtable.routeName = newtable.name.replace(/\s+/g, "").toLowerCase();
-
-console.log(newtable);
-
-characters.push(newtable);
-
-res.json(newtable);
+    var newtable = req.body;
+    newtable.routeName = newtable.name.replace(/\s+/g, "").toLowerCase();
+    console.log(newtable);
+    reservations.push(newtable);
+    res.json(newtable);
 });
