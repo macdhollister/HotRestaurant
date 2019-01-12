@@ -14,37 +14,58 @@ app.use(express.json());
 // Starts the server to begin listening
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
-  });
+});
 
 // Set variable to store user data
-  let reservations = [
-    {
-      routeName: "tables",
-      customerName: "",
-      phoneNumber: "",
-      customerEmail: "",
-      customerId: ""
-    },
+const reservations = [
+    // {
+    //     routeName: "tables",
+    //     customerName: "",
+    //     phoneNumber: "",
+    //     customerEmail: "",
+    //     customerId: ""
+    // }
 ];
+
+const waitlist = [
+    // {
+    //     routeName: "tables",
+    //     customerName: "",
+    //     phoneNumber: "",
+    //     customerEmail: "",
+    //     customerId: ""
+    // }
+]
 
 // Set routes
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "home.html"));
-  });
+});
 
 app.get("/tables", function(req, res) {
     res.sendFile(path.join(__dirname, "tables.html"));
-  });
+});
   
 app.get("/reserve", function(req, res) {
     res.sendFile(path.join(__dirname, "reserve.html"));
-  });
+});
 
 // Post user data to server
 app.post("/api/tables", function(req, res) {
     let newtable = req.body;
     newtable.routeName = newtable.customerName.replace(/\s+/g, "").toLowerCase();
-    console.log(newtable);
-    reservations.push(newtable);
+    // console.log(newtable);
+
+    if (reservations.length < 5) {
+        reservations.push(newtable);
+        console.log('pushed to reservations');
+    } else {
+        waitlist.push(newtable);
+        console.log('pushed to waitlist');
+    }
+
+    console.log('Reservations\r\n' + reservations);
+    console.log('Waitlist\r\n' + waitlist);
+
     res.json(newtable);
 });
