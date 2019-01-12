@@ -1,11 +1,11 @@
 // Various package requirements
-var express = require("express");
-var path = require("path");
-var bodyParser = require("body-parser");
+const express = require("express");
+const path = require("path");
+const bodyParser = require("body-parser");
 
 // Sets up the Express App
-var app = express();
-var PORT = 3000;
+const app = express();
+const PORT = 3000;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -17,7 +17,7 @@ app.listen(PORT, function() {
   });
 
 // Set variable to store user data
-  var reservations = [
+  let reservations = [
     {
       routeName: "tables",
       customerName: "",
@@ -42,7 +42,7 @@ app.get("/reserve", function(req, res) {
 
 // Post user data to server
 app.post("/api/tables", function(req, res) {
-    var newtable = req.body;
+    let newtable = req.body;
     newtable.routeName = newtable.customerName.replace(/\s+/g, "").toLowerCase();
     console.log(newtable);
     reservations.push(newtable);
